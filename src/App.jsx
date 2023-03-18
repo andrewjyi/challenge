@@ -1,8 +1,20 @@
-function App() {
-
+const Layout = ({ children }) => {
   return (
-    <div>hello world</div>
-  )
+    <div>
+      <header>header</header>
+      <main>{children}</main>
+      <footer>footer</footer>
+    </div>
+  );
+};
+
+function App() {
+  return (
+    <Layout>
+      <nav>nav</nav>
+      <aside>sidebar</aside>
+    </Layout>
+  );
 }
 
-export default App
+export default App;

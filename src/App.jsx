@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
 function App() {
   return (
     <Layout>
-      <nav>nav</nav>
+      <nav className="text-3xl font-bold underline">nav</nav>
       <aside>sidebar</aside>
     </Layout>
   );

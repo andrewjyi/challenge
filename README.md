@@ -1,10 +1,6 @@
-# WeeCare Challenge  
+# Challenge Requirements (Expert)  
 
-Frontend Interview Challenge  
-
-# Requirements (Expert)  
-
-• Show top 100 albums based on the json feed here: https://itunes.apple.com/us/rss/topalbums/limit=100/json ✅  
+• Show top 100 albums: https://itunes.apple.com/us/rss/topalbums/limit=100/json ✅  
 • Source code on Github ✅  
 • Cross browser support (or graceful degradation)  
 • Responsive design and implementation  
@@ -19,3 +15,9 @@ Frontend Interview Challenge
 
 • Add a feature that you think would work well here (for instance, advanced search, integration with other API, a "Favorite" functionality)
 Submission  
+
+# TODO
+- add pagination?
+- add <Suspense> for loading?
+- add error handling?
+- memoize album call

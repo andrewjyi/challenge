@@ -1,9 +1,9 @@
 const Header = () => {
   return (
     <>
-      <header className="border h-10">header</header>
+      <header className="h-12 center font-light">Top Albums</header>
     </>
   );
 };
 
-export default Header;
+export { Header };

@@ -1,47 +1,37 @@
-import Layout from "./components/Layout/Layout";
-import Sidebar from "./components/Sidebar/Sidebar";
+import { Layout } from "./components/Layout";
 import useTopAlbums from "./hooks/useTopAlbums";
+import Album from "./features/TopAlbums/Album";
+import { Suspense, useEffect, useState } from "react";
 
-const Album = ({ info, index }) => {
-  const handleClick = () => {
-    console.log('modal open');
-    // open modal with all info?
-  };
-
-  return (
-    <li onClick={() => handleClick}>
-      <picture className="drop-shadow-xl">
-        <img
-          className="h-60 w-60 rounded"
-          meta={info["im:name"].label}
-          src={info["im:image"][2].label}
-        />
-      </picture>
-      <div className="text-xs mt-2">
-        <div className="font-semibold">{index}</div>
-        <div className="font-light">{info["im:name"].label}</div>
-        <div className="font-extralight">{info["im:artist"].label}</div>
-      </div>
-    </li>
-  );
+const Search = (list) => {
+  
 };
 
 const AlbumList = () => {
+  const [topAlbums, setTopAlbums] = useState(null);
+
   const albums = useTopAlbums(
     "https://itunes.apple.com/us/rss/topalbums/limit=10/json"
   );
 
+  useEffect(() => {
+    setTopAlbums(albums);
+  }, []);
+
   return (
     <section>
-      <ul className="grid grid-cols-5 gap-6">
-        {albums &&
-          albums.feed?.entry?.map((album, i) => (
-            <Album
-              key={album.id?.attributes["im:id"]}
-              info={album}
-              index={i + 1}
-            />
-          ))}
+      <Search />
+      <ul className="grid grid-cols-6 gap-2">
+        <Suspense fallback={"<div>Loading...</div>"}>
+          {topAlbums &&
+            topAlbums.feed?.entry?.map((album, i) => (
+              <Album
+                key={album.id?.attributes["im:id"]}
+                info={album}
+                index={i + 1}
+              />
+            ))}
+        </Suspense>
       </ul>
     </section>
   );
@@ -51,7 +41,6 @@ function App() {
   return (
     <>
       <Layout>
-        <Sidebar />
         <AlbumList />
       </Layout>
     </>

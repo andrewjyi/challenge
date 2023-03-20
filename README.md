@@ -2,8 +2,8 @@
 
 • Show top 100 albums: https://itunes.apple.com/us/rss/topalbums/limit=100/json ✅  
 • Source code on Github ✅  
-• Cross browser support (or graceful degradation)  
-• Responsive design and implementation  
+• Cross browser support (or graceful degradation) ✅  
+• Responsive design and implementation ✅  
 • Use a CSS Framework (Bootstrap, Foundation, etc.) ✅  
 • Use a JavaScript framework (React, Angular, etc.) • Use SASS for custom CSS ✅  
 • Make use of CSS animations  
@@ -20,4 +20,5 @@ Submission
 - add pagination?
 - add <Suspense> for loading?
 - add error handling?
-- memoize album call
+- memoize album call?
+- lift state up?

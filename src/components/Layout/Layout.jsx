@@ -1,14 +1,12 @@
-import Header from "./Header";
-import Footer from "./Footer";
+import { Header } from "./Header";
 
 const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <main className="inline-flex">{children}</main>
-      <Footer />
+      <main>{children}</main>
     </>
   );
 };
 
-export default Layout;
+export { Layout };

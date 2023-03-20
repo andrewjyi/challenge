@@ -1,13 +1,8 @@
-import useTopAlbums from "../../hooks/useTopAlbums";
 import Album from "../TopAlbums/Album";
-import { Spinner } from "react-bootstrap";
-import {
-  Menu,
-  MenuItem,
-  ClearButton,
-  Typeahead,
-} from "react-bootstrap-typeahead";
-import { Suspense, useEffect, useState } from "react";
+import axios from "axios";
+import { Typeahead } from "react-bootstrap-typeahead";
+import { useQuery } from "@tanstack/react-query";
+import { Loading } from "../../components/Loading/Loading";
 
 const Search = ({ list, handleSearch }) => {
   let options = [];
@@ -21,7 +16,7 @@ const Search = ({ list, handleSearch }) => {
   return (
     <Typeahead
       id="typeahead"
-      className="mb-11"
+      className="mb-2 max-w-lg border"
       placeholder="Search..."
       onKeyDown={(query) => {
         if (query.key === "Enter") {
@@ -35,34 +30,20 @@ const Search = ({ list, handleSearch }) => {
         handleSearch(query);
       }}
       options={options}
-      // renderMenu={(results, menuProps) => (
-      //   <Menu {...menuProps}>
-      //     {results.map((result, index) => {
-      //       return (
-      //         <MenuItem key={index} option={result} position={index}>
-      //           {result.label}
-      //         </MenuItem>
-      //       );
-      //     })}
-      //   </Menu>
-      // )}
-    >
-      {/* {({ onClear, selected }) => (
-        <div>
-          {!!selected.length && <ClearButton onClick={onClear} />}
-          {!selected.length && <Spinner animation="grow" size="sm" />}
-        </div>
-      )} */}
-    </Typeahead>
+    />
   );
 };
 
 const AlbumList = () => {
-  const [topAlbums, setTopAlbums] = useState(null);
-
-  const albums = useTopAlbums(
-    "https://itunes.apple.com/us/rss/topalbums/limit=10/json"
-  );
+  const { isLoading, error, data, isFetching } = useQuery({
+    queryKey: ["albumData"],
+    queryFn: () =>
+      axios
+        .get("https://itunes.apple.com/us/rss/topalbums/limit=100/json")
+        .then((res) => res.data),
+  });
+  if (isLoading) return <Loading />;
+  if (error) return "An error has occurred: " + error.message;
 
   const handleSearch = (query) => {
     if (query?.length > 0) {
@@ -81,28 +62,27 @@ const AlbumList = () => {
       }
     }
 
-    setTopAlbums(albums?.feed?.entry);
+    setTopAlbums(data?.feed?.entry);
   };
 
-  useEffect(() => {
-    setTopAlbums(albums?.feed?.entry);
-  }, [albums]);
-
   return (
-    <section>
-      <Suspense fallback={"Loading..."}>
-        <Search list={topAlbums} handleSearch={handleSearch} />
-        <ul className="grid grid-cols-6 gap-2">
-          {topAlbums &&
-            topAlbums.map((album, i) => (
+    <section className="center flex-col">
+      <Search list={data?.feed?.entry} handleSearch={handleSearch} />
+      <ul className="grid grid-cols-5 gap-10">
+        <>
+          {isFetching ? (
+            <Loading />
+          ) : (
+            data?.feed?.entry?.map((album, i) => (
               <Album
                 key={album.id?.attributes["im:id"]}
                 info={album}
                 index={i + 1}
               />
-            ))}
-        </ul>
-      </Suspense>
+            ))
+          )}
+        </>
+      </ul>
     </section>
   );
 };

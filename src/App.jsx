@@ -1,8 +1,7 @@
-import { Suspense } from "react";
 import { Layout } from "./components/Layout";
 import { AlbumList } from "./features/TopAlbums/AlbumList";
-import { Loading } from "./components/Loading/Loading";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const queryClient = new QueryClient();
 
@@ -11,9 +10,7 @@ function App() {
     <>
       <Layout>
         <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<Loading />}>
-            <AlbumList />
-          </Suspense>
+          <AlbumList />
         </QueryClientProvider>
       </Layout>
     </>

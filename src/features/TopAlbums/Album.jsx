@@ -1,6 +1,5 @@
-import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import { AlbumDetailsModal } from "./AlbumDetailsModal";
+import React, { useState } from "react";
 
 const Album = ({ info, index }) => {
   const [show, setShow] = useState(false);
@@ -8,13 +7,9 @@ const Album = ({ info, index }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleClick = () => {
-    handleShow();
-  };
-
   return (
     <>
-      <li onClick={() => handleClick}>
+      <li onClick={() => handleShow()}>
         <picture className="drop-shadow-xl">
           <img
             className="h-60 w-60 rounded"
@@ -28,6 +23,7 @@ const Album = ({ info, index }) => {
           <div className="font-extralight">{info["im:artist"].label}</div>
         </div>
       </li>
+      <AlbumDetailsModal info={info} show={show} close={() => handleClose()} />
     </>
   );
 };

@@ -1,11 +1,5 @@
-import { useEffect } from "react";
-
 const Loading = () => {
-  useEffect(() => {
-    console.log('here');
-  })
-
-  return <div className="center">Loading...</div>;
+  return <div className="center mt-10 text-2xl">Loading...</div>;
 };
 
 export { Loading };

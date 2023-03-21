@@ -3,6 +3,7 @@ import axios from "axios";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { useQuery } from "@tanstack/react-query";
 import { Loading } from "../../components/Loading/Loading";
+import { useState } from "react";
 
 const Search = ({ list, handleSearch }) => {
   let options = [];
@@ -16,7 +17,7 @@ const Search = ({ list, handleSearch }) => {
   return (
     <Typeahead
       id="typeahead"
-      className="mb-2 max-w-lg border"
+      className="text-2xl mb-2 max-w-lg"
       placeholder="Search..."
       onKeyDown={(query) => {
         if (query.key === "Enter") {
@@ -26,28 +27,35 @@ const Search = ({ list, handleSearch }) => {
       onChange={(query) => {
         handleSearch(query[0]);
       }}
-      onInputChange={(query) => {
-        handleSearch(query);
-      }}
+      // onInputChange={(query) => {
+      //   handleSearch(query);
+      // }}
       options={options}
     />
   );
 };
 
 const AlbumList = () => {
-  const { isLoading, error, data, isFetching } = useQuery({
-    queryKey: ["albumData"],
+  const [albums, setAlbums] = useState(null);
+
+  const { isLoading, error } = useQuery({
+    queryKey: ["data"],
     queryFn: () =>
       axios
         .get("https://itunes.apple.com/us/rss/topalbums/limit=100/json")
-        .then((res) => res.data),
+        .then((res) => {
+          setAlbums(res.data);
+          return res.data;
+        }),
+    staleTime: 1000,
   });
+
   if (isLoading) return <Loading />;
   if (error) return "An error has occurred: " + error.message;
 
   const handleSearch = (query) => {
     if (query?.length > 0) {
-      const found = topAlbums.filter((album) => {
+      const found = albums.feed.entry.filter((album) => {
         const test =
           query.toLowerCase() ==
           (album["im:artist"].label.toLowerCase() ||
@@ -58,29 +66,27 @@ const AlbumList = () => {
       });
 
       if (found.length > 0) {
-        return setTopAlbums(found);
+        return setAlbums(found);
       }
     }
 
-    setTopAlbums(data?.feed?.entry);
+    if (query.length === 0) {
+      return setAlbums(albums?.feed?.entry);
+    }
   };
 
   return (
-    <section className="center flex-col">
-      <Search list={data?.feed?.entry} handleSearch={handleSearch} />
-      <ul className="grid grid-cols-5 gap-10">
+    <section>
+      <Search list={albums?.feed?.entry} handleSearch={handleSearch} />
+      <ul className="grid grid-cols-6 gap-8">
         <>
-          {isFetching ? (
-            <Loading />
-          ) : (
-            data?.feed?.entry?.map((album, i) => (
-              <Album
-                key={album.id?.attributes["im:id"]}
-                info={album}
-                index={i + 1}
-              />
-            ))
-          )}
+          {albums?.feed?.entry?.map((album, i) => (
+            <Album
+              key={album.id?.attributes["im:id"]}
+              info={album}
+              index={i + 1}
+            />
+          ))}
         </>
       </ul>
     </section>

@@ -1,7 +1,7 @@
 import { AlbumDetailsModal } from "./AlbumDetailsModal";
 import React, { useState } from "react";
 
-const Album = ({ info, index }) => {
+const Album = ({ info }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -18,7 +18,6 @@ const Album = ({ info, index }) => {
           />
         </picture>
         <div className="text-xs mt-2">
-          <div className="font-semibold">{index}</div>
           <div className="font-light">{info["im:name"].label}</div>
           <div className="font-extralight">{info["im:artist"].label}</div>
         </div>

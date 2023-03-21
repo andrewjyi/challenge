@@ -57,12 +57,8 @@ const AlbumList = () => {
       {/* <ul className="auto-grid"> */}
       <ul className="grid grid-cols-6 gap-8">
         <>
-          {albums?.map((album, i) => (
-            <Album
-              key={album.id?.attributes["im:id"]}
-              info={album}
-              index={i + 1}
-            />
+          {albums?.map((album) => (
+            <Album key={album.id?.attributes["im:id"]} info={album} />
           ))}
         </>
       </ul>

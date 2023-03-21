@@ -8,8 +8,8 @@
 • Use a JavaScript framework (React, Angular, etc.) ✅ 
 • Use SASS for custom CSS ✅  
 • Allow the user to see more information about a selected Album • Host the website on the service of your choice ✅  
-
-• Make use of CSS animations  
+• Make use of CSS animations ✅  
+ 
 • Allow the top 100 to be searchable  
 • Please email devops@weecare.co with a link to the source code on GitHub and a link to the hosted page (if applicable).  
 

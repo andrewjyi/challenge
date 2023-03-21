@@ -1,16 +1,6 @@
 import { Typeahead } from "react-bootstrap-typeahead";
 
-const SearchBar = ({ list, handleSearch }) => {
-  let options = [];
-  if (list) {
-    list.forEach((item) => {
-      options.push({
-        artist: item["im:artist"].label,
-        name: item["im:name"].label,
-      });
-    });
-  }
-
+const SearchBar = ({ options, handleSearch }) => {
   return (
     <Typeahead
       id="typeahead"
@@ -19,18 +9,16 @@ const SearchBar = ({ list, handleSearch }) => {
       ignoreDiacritics={false}
       filterBy={["artist", "name"]}
       labelKey={(option) => `${option.artist} (${option.name})`}
-      // onKeyDown={(query) => {
-      //   if (query.key === "Enter") {
-      //     handleSearch(query.target.value);
-      //   }
-      // }}
       onInputChange={(text) => {
         handleSearch(text);
       }}
       onChange={(query) => {
         handleSearch(query[0]);
       }}
-      options={options}
+      options={options.map((item) => ({
+        artist: item["im:artist"].label,
+        name: item["im:name"].label,
+      }))}
       renderMenuItemChildren={(option) => (
         <div>
           <div className="text-sm">{option.artist}</div>

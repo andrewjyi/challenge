@@ -14,14 +14,17 @@ const AlbumList = () => {
       axios
         .get("https://itunes.apple.com/us/rss/topalbums/limit=100/json")
         .then((res) => {
-          localStorage.setItem("albums", JSON.stringify(res.data.feed.entry));
-          setAlbums(res.data.feed.entry);
-          return res.data.feed.entry;
+          const {
+            feed: { entry },
+          } = res.data;
+
+          localStorage.setItem("albums", JSON.stringify(entry));
+          setAlbums(entry);
+          return entry;
         }),
     staleTime: 1000,
   });
 
-  if (isLoading) return <Loading />;
   if (error) return "An error has occurred: " + error.message;
 
   const resetSearch = () => {
@@ -37,8 +40,6 @@ const AlbumList = () => {
     const found = albums.filter((album) => {
       const { name, artist } = query;
       // TODO: fix single search?
-      // console.log("name", name);
-      // console.log("artist", artist);
 
       return (
         name?.toLowerCase() === album["im:name"]?.label.toLowerCase() ||
@@ -53,15 +54,21 @@ const AlbumList = () => {
 
   return (
     <section className="pl-5">
-      <SearchBar list={albums} handleSearch={handleSearch} />
-      {/* <ul className="auto-grid"> */}
-      <ul className="grid grid-cols-6 gap-8">
+      {isLoading ? (
+        <Loading />
+      ) : (
         <>
-          {albums?.map((album) => (
-            <Album key={album.id?.attributes["im:id"]} info={album} />
-          ))}
+          <SearchBar list={albums} handleSearch={handleSearch} />
+          {/* <ul className="auto-grid"> */}
+          <ul className="grid grid-cols-6 gap-8">
+            <>
+              {albums?.map((album) => (
+                <Album key={album.id?.attributes["im:id"]} info={album} />
+              ))}
+            </>
+          </ul>
         </>
-      </ul>
+      )}
     </section>
   );
 };

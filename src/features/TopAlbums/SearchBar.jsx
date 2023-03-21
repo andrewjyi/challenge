@@ -1,7 +1,6 @@
 import { Typeahead } from "react-bootstrap-typeahead";
 
 const SearchBar = ({ list, handleSearch }) => {
-  // TODO: fix this? list is undefind because of async call
   let options = [];
   if (list) {
     list.forEach((item) => {
@@ -22,18 +21,25 @@ const SearchBar = ({ list, handleSearch }) => {
       labelKey={(option) => `${option.artist} (${option.name})`}
       onKeyDown={(query) => {
         if (query.key === "Enter") {
-          console.log('enter');
+          console.log("enter");
           handleSearch(query.target.value);
         }
       }}
       onInputChange={(text, e) => {
-        console.log('e', e);
         handleSearch(text);
       }}
       onChange={(query) => {
         handleSearch(query[0]);
       }}
       options={options}
+      renderMenuItemChildren={(option) => (
+        <div>
+          <div className="text-sm">{option.artist}</div>
+          <div className="text-xs">
+            <small>Album: {option.name}</small>
+          </div>
+        </div>
+      )}
     />
   );
 };

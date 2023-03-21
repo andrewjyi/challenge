@@ -1,39 +1,9 @@
 import Album from "../TopAlbums/Album";
-import { Typeahead } from "react-bootstrap-typeahead";
 import { useQuery } from "@tanstack/react-query";
 import { Loading } from "../../components/Loading/Loading";
 import { useState } from "react";
 import axios from "axios";
-
-const Search = ({ list, handleSearch }) => {
-  let options = [];
-  if (list) {
-    list.forEach((item) => {
-      options.push(item["im:artist"].label);
-      options.push(item["im:name"].label);
-    });
-  }
-
-  return (
-    <Typeahead
-      id="typeahead"
-      className="text-2xl mb-2 max-w-lg"
-      placeholder="Search..."
-      onKeyDown={(query) => {
-        if (query.key === "Enter") {
-          handleSearch(query.target.value);
-        }
-      }}
-      onChange={(query) => {
-        handleSearch(query[0]);
-      }}
-      // onInputChange={(query) => {
-      //   handleSearch(query);
-      // }}
-      options={options}
-    />
-  );
-};
+import { Search } from "./Search";
 
 const AlbumList = () => {
   const [albumsList, setAlbumsList] = useState(null);
@@ -54,20 +24,21 @@ const AlbumList = () => {
   if (error) return "An error has occurred: " + error.message;
 
   const handleSearch = (query) => {
-    if (query.length === 0) {
+    console.log("query", query);
+
+    if (!query || query.length === 0) {
       return setAlbumsList(albumsList);
     }
 
     const found = albumsList.filter((album) => {
-      const test =
+      return (
         query.toLowerCase() ==
         (album["im:artist"].label.toLowerCase() ||
-          album["im:name"].label.toLowerCase());
-
-      console.log(test);
-      return test;
+          album["im:name"].label.toLowerCase())
+      );
     });
 
+    console.log("found", found);
     if (found.length > 0) {
       return setAlbumsList(found);
     }

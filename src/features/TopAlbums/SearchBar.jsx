@@ -7,8 +7,8 @@ const SearchBar = ({ options, handleSearch }) => {
       className="text-2xl mb-2 max-w-md"
       placeholder="Search..."
       ignoreDiacritics={false}
-      filterBy={["artist", "name"]}
-      labelKey={(option) => `${option.artist} (${option.name})`}
+      filterBy={["artist", "albumName"]}
+      labelKey={(option) => `${option.artist} (${option.albumName})`}
       onInputChange={(text) => {
         handleSearch(text);
       }}
@@ -17,13 +17,13 @@ const SearchBar = ({ options, handleSearch }) => {
       }}
       options={options.map((item) => ({
         artist: item["im:artist"].label,
-        name: item["im:name"].label,
+        albumName: item["im:name"].label,
       }))}
       renderMenuItemChildren={(option) => (
         <div>
           <div className="text-sm">{option.artist}</div>
           <div className="text-xs">
-            <small>Album: {option.name}</small>
+            <small>Album: {option.albumName}</small>
           </div>
         </div>
       )}

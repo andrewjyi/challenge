@@ -33,23 +33,24 @@ const AlbumList = () => {
   };
 
   const handleSearch = (query) => {
-    console.log(query);
     if (!query || query.length === 0) {
       return resetSearch();
     }
 
-    const found = albums.filter((album) => {
-      const { name, artist } = query;
-      // TODO: fix single search?
+    const { albumName, artist } = query;
 
-      return (
-        name?.toLowerCase() === album["im:name"]?.label.toLowerCase() ||
-        artist?.toLowerCase() === album["im:artist"]?.label.toLowerCase()
-      );
+    const albumFound = albums.find((album) => {
+      return albumName?.toLowerCase() === album["im:name"]?.label.toLowerCase();
     });
+    if (albumFound) {
+      return setAlbums([albumFound]);
+    }
 
-    if (found?.length > 0) {
-      return setAlbums(found);
+    const found = albums.filter((album) => {
+      return artist?.toLowerCase() === album["im:artist"]?.label.toLowerCase();
+    });
+    if (found.length > 0) {
+      setAlbums(found);
     }
   };
 
@@ -59,7 +60,7 @@ const AlbumList = () => {
         <Loading />
       ) : (
         <>
-          <SearchBar list={albums} handleSearch={handleSearch} />
+          <SearchBar options={albums} handleSearch={handleSearch} />
           {/* <ul className="auto-grid"> */}
           <ul className="grid grid-cols-6 gap-8">
             <>

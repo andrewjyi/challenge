@@ -33,6 +33,7 @@ const AlbumList = () => {
   };
 
   const handleSearch = (query) => {
+    console.log(query);
     if (!query || query.length === 0) {
       return resetSearch();
     }

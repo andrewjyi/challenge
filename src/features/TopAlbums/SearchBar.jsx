@@ -19,13 +19,12 @@ const SearchBar = ({ list, handleSearch }) => {
       ignoreDiacritics={false}
       filterBy={["artist", "name"]}
       labelKey={(option) => `${option.artist} (${option.name})`}
-      onKeyDown={(query) => {
-        if (query.key === "Enter") {
-          console.log("enter");
-          handleSearch(query.target.value);
-        }
-      }}
-      onInputChange={(text, e) => {
+      // onKeyDown={(query) => {
+      //   if (query.key === "Enter") {
+      //     handleSearch(query.target.value);
+      //   }
+      // }}
+      onInputChange={(text) => {
         handleSearch(text);
       }}
       onChange={(query) => {

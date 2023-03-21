@@ -1,40 +1,41 @@
 import { Typeahead } from "react-bootstrap-typeahead";
 
-const Search = ({ list, handleSearch }) => {
+const SearchBar = ({ list, handleSearch }) => {
   // TODO: fix this? list is undefind because of async call
   let options = [];
   if (list) {
     list.forEach((item) => {
-      options.push(
-        `${item["im:artist"].label} (Album: ${item["im:name"].label})`
-      );
+      options.push({
+        artist: item["im:artist"].label,
+        name: item["im:name"].label,
+      });
     });
   }
 
   return (
     <Typeahead
       id="typeahead"
-      className="text-2xl mb-2 max-w-lg"
+      className="text-2xl mb-2 max-w-md"
       placeholder="Search..."
+      ignoreDiacritics={false}
+      filterBy={["artist", "name"]}
+      labelKey={(option) => `${option.artist} (${option.name})`}
       onKeyDown={(query) => {
         if (query.key === "Enter") {
+          console.log('enter');
           handleSearch(query.target.value);
         }
       }}
+      onInputChange={(text, e) => {
+        console.log('e', e);
+        handleSearch(text);
+      }}
       onChange={(query) => {
         handleSearch(query[0]);
-      }}
-      renderItem={({ index, style }) => {
-        const item = results[index];
-        return (
-          <MenuItem key={item} option={item} position={index} style={style}>
-            <Highlighter search={props.text}>{item}</Highlighter>
-          </MenuItem>
-        );
       }}
       options={options}
     />
   );
 };
 
-export { Search };
+export { SearchBar };

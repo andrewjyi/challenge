@@ -4,7 +4,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <main className="max-w-full pl-5">{children}</main>
+      <main>{children}</main>
     </>
   );
 };

@@ -1,20 +1,21 @@
+import axios from "axios";
 import Album from "../TopAlbums/Album";
 import { useQuery } from "@tanstack/react-query";
 import { Loading } from "../../components/Loading/Loading";
 import { useState } from "react";
-import axios from "axios";
-import { Search } from "./Search";
+import { SearchBar } from "./SearchBar";
 
 const AlbumList = () => {
-  const [albumsList, setAlbumsList] = useState(null);
+  const [albums, setAlbums] = useState(null);
 
   const { isLoading, error } = useQuery({
-    queryKey: ["data"],
+    queryKey: ["albums"],
     queryFn: () =>
       axios
         .get("https://itunes.apple.com/us/rss/topalbums/limit=100/json")
         .then((res) => {
-          setAlbumsList(res.data.feed.entry);
+          localStorage.setItem("albums", JSON.stringify(res.data.feed.entry));
+          setAlbums(res.data.feed.entry);
           return res.data.feed.entry;
         }),
     staleTime: 1000,
@@ -23,33 +24,40 @@ const AlbumList = () => {
   if (isLoading) return <Loading />;
   if (error) return "An error has occurred: " + error.message;
 
-  const handleSearch = (query) => {
-    console.log("query", query);
+  const resetSearch = () => {
+    const cache = JSON.parse(localStorage.getItem("albums"));
+    return setAlbums(cache);
+  };
 
+  const handleSearch = (query) => {
     if (!query || query.length === 0) {
-      return setAlbumsList(albumsList);
+      return resetSearch();
     }
 
-    const found = albumsList.filter((album) => {
+    const found = albums.filter((album) => {
+      const { name, artist } = query;
+      // TODO: fix single search?
+      // console.log("name", name);
+      // console.log("artist", artist);
+
       return (
-        query.toLowerCase() ==
-        (album["im:artist"].label.toLowerCase() ||
-          album["im:name"].label.toLowerCase())
+        name?.toLowerCase() === album["im:name"]?.label.toLowerCase() ||
+        artist?.toLowerCase() === album["im:artist"]?.label.toLowerCase()
       );
     });
 
-    console.log("found", found);
-    if (found.length > 0) {
-      return setAlbumsList(found);
+    if (found?.length > 0) {
+      return setAlbums(found);
     }
   };
 
   return (
-    <section>
-      <Search list={albumsList} handleSearch={handleSearch} />
+    <section className="pl-5">
+      <SearchBar list={albums} handleSearch={handleSearch} />
+      {/* <ul className="auto-grid"> */}
       <ul className="grid grid-cols-6 gap-8">
         <>
-          {albumsList?.map((album, i) => (
+          {albums?.map((album, i) => (
             <Album
               key={album.id?.attributes["im:id"]}
               info={album}

@@ -41,8 +41,7 @@ const AlbumList = () => {
     const { albumName, artist } = query;
 
     const albumFound = albums.find(
-      (album) =>
-        albumName?.toLowerCase() === album.albumName.toLowerCase()
+      (album) => albumName?.toLowerCase() === album.albumName.toLowerCase()
     );
     if (albumFound) {
       return setAlbums([albumFound]);
@@ -64,7 +63,6 @@ const AlbumList = () => {
         <>
           <SearchBar options={albums} handleSearch={handleSearch} />
           <ul className="auto-grid">
-            {/* <ul className="grid grid-cols-6 gap-8"> */}
             {albums?.map((album) => (
               <Album key={album.id} info={album} />
             ))}

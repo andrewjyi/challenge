@@ -1,13 +1,13 @@
 import axios from "axios";
 import { Album } from "../TopAlbums/Album";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loading } from "../../components/Loading/Loading";
 import { useState } from "react";
 import { SearchBar } from "./SearchBar";
 import { transformAlbum } from "./transformAlbum";
 import styled from "styled-components";
 
-const List = styled.ul`
+const Ul = styled.ul`
   --auto-grid-min-size: 16rem;
   display: grid;
   grid-template-columns: repeat(
@@ -83,11 +83,11 @@ const AlbumList = () => {
               <SearchBar options={albums} handleSearch={handleSearch} />
             </div>
           </div>
-          <List className="auto-grid">
+          <Ul className="auto-grid">
             {albums?.map((album) => (
               <Album key={album.id} info={album} />
             ))}
-          </List>
+          </Ul>
         </section>
       )}
     </>

@@ -2,7 +2,7 @@ import { AlbumDetailsModal } from "./AlbumDetailsModal";
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const Item = styled.li`
+const Li = styled.li`
   &:hover {
     cursor: pointer;
   }
@@ -16,7 +16,7 @@ const Album = ({ info }) => {
 
   return (
     <>
-      <Item onClick={() => handleShow()}>
+      <Li onClick={() => handleShow()}>
         <picture className="drop-shadow-xl center">
           <img
             className={info.imgClass}
@@ -28,7 +28,7 @@ const Album = ({ info }) => {
           <div className="font-light">{info.name}</div>
           <div className="font-extralight">{info.artist}</div>
         </div>
-      </Item>
+      </Li>
       <>
         <AlbumDetailsModal
           info={info}

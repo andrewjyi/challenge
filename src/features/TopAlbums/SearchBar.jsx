@@ -10,10 +10,13 @@ const SearchBar = ({ options, handleSearch }) => {
     <Typeahead
       id="typeahead"
       placeholder="Search..."
-      ignoreDiacritics={false}
       size={"sm"}
+      inputProps={{
+        style: {
+          width: "300px",
+        },
+      }}
       filterBy={[props.artist, props.name]}
-      positionFixed={true}
       labelKey={(option) => `${option[props.artist]} (${option[props.name]})`}
       onInputChange={(text) => {
         handleSearch(text);
@@ -21,9 +24,9 @@ const SearchBar = ({ options, handleSearch }) => {
       onChange={(query) => {
         handleSearch(query[0]);
       }}
-      options={options.map((item) => ({
-        [props.artist]: item[props.artist],
-        [props.name]: item[props.name],
+      options={options.map((option) => ({
+        [props.artist]: option[props.artist],
+        [props.name]: option[props.name],
       }))}
       renderMenuItemChildren={(option) => (
         <div>

@@ -1,6 +1,6 @@
 import { getMuricanDateFormat } from "../../utils/utils";
 
-const transformAlbum = (data) => {
+const transformAlbums = (data) => {
   return data.map((data) => ({
     id: data["id"]["attributes"]["im:id"],
     imgClass: "h-72 w-72 rounded",
@@ -15,4 +15,4 @@ const transformAlbum = (data) => {
   }));
 };
 
-export { transformAlbum };
+export { transformAlbums };

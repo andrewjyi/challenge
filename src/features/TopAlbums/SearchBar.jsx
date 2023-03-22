@@ -5,7 +5,7 @@ const props = {
   name: "name",
 };
 
-const SearchBar = ({ options, handleSearch }) => {
+const SearchBar = ({ options, onHandleSearch }) => {
   return (
     <Typeahead
       id="typeahead"
@@ -19,10 +19,10 @@ const SearchBar = ({ options, handleSearch }) => {
       filterBy={[props.artist, props.name]}
       labelKey={(option) => `${option[props.artist]} (${option[props.name]})`}
       onInputChange={(text) => {
-        handleSearch(text);
+        onHandleSearch(text);
       }}
       onChange={(query) => {
-        handleSearch(query[0]);
+        onHandleSearch(query[0]);
       }}
       options={options.map((option) => ({
         [props.artist]: option[props.artist],

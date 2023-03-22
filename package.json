@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.28.0",
     "bootstrap": "^5.2.3",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",

@@ -29,9 +29,15 @@ const Album = ({ info }) => {
           <div className="font-extralight">{info.artist}</div>
         </div>
       </Item>
-      <AlbumDetailsModal info={info} show={show} close={() => handleClose()} />
+      <>
+        <AlbumDetailsModal
+          info={info}
+          show={show}
+          close={() => handleClose()}
+        />
+      </>
     </>
   );
 };
 
-export default Album;
+export { Album };

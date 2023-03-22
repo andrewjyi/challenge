@@ -1,5 +1,5 @@
 import axios from "axios";
-import Album from "../TopAlbums/Album";
+import { Album } from "../TopAlbums/Album";
 import { useQuery } from "@tanstack/react-query";
 import { Loading } from "../../components/Loading/Loading";
 import { useState } from "react";
@@ -73,11 +73,11 @@ const AlbumList = () => {
   };
 
   return (
-    <section className="pl-4 pr-4">
+    <>
       {isLoading ? (
         <Loading />
       ) : (
-        <>
+        <section className="pl-4 pr-4">
           <div className="mb-4">
             <div className="center">
               <SearchBar options={albums} handleSearch={handleSearch} />
@@ -88,9 +88,9 @@ const AlbumList = () => {
               <Album key={album.id} info={album} />
             ))}
           </List>
-        </>
+        </section>
       )}
-    </section>
+    </>
   );
 };
 

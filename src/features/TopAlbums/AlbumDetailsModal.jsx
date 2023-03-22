@@ -1,5 +1,14 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
+import styled from "styled-components";
+
+const Dt = styled.dt`
+  display: inline-block;
+  margin-right: 0.2rem;
+`;
+const Dd = styled.dd`
+  display: inline-block;
+`;
 
 const AlbumDetailsModal = ({ info, show, close }) => {
   return (
@@ -13,21 +22,26 @@ const AlbumDetailsModal = ({ info, show, close }) => {
           <img className={info.imgClass} meta={info.name} src={info.imgSrc} />
         </picture>
         <dl className="mt-4">
-          <dt>
-            <b>Artist:</b> <dd>{info.artist}</dd>
-          </dt>
-          <dt>
-            <b>Item Count:</b> <dd>{info.itemCount}</dd>
-          </dt>
-          <dt>
-            <b>Price:</b> <dd>{info.price}</dd>
-          </dt>
-          <dt>
-            <b>Release Date:</b> <dd>{info.releaseDate}</dd>
-          </dt>
-          <dt>
-            <b>Rights:</b> <dd>{info.rights}</dd>
-          </dt>
+          <div>
+            <Dt>Artist:</Dt>
+            <Dd>{info.artist}</Dd>
+          </div>
+          <div>
+            <Dt>Item Count:</Dt>
+            <Dd>{info.itemCount}</Dd>
+          </div>
+          <div>
+            <Dt>Price:</Dt>
+            <Dd>{info.price}</Dd>
+          </div>
+          <div>
+            <Dt>Release Date:</Dt>
+            <Dd>{info.releaseDate}</Dd>
+          </div>
+          <div>
+            <Dt>Rights:</Dt>
+            <Dd>{info.rights}</Dd>
+          </div>
         </dl>
       </Modal.Body>
     </Modal>

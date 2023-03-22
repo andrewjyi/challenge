@@ -4,10 +4,11 @@ const SearchBar = ({ options, handleSearch }) => {
   return (
     <Typeahead
       id="typeahead"
-      className="text-2xl mb-2 max-w-md"
       placeholder="Search..."
       ignoreDiacritics={false}
+      size={"sm"}
       filterBy={["artist", "albumName"]}
+      positionFixed={true}
       labelKey={(option) => `${option.artist} (${option.albumName})`}
       onInputChange={(text) => {
         handleSearch(text);

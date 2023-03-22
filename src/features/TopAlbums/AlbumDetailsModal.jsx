@@ -9,7 +9,7 @@ const AlbumDetailsModal = ({ info, show, close }) => {
         <button onClick={() => close()}>X</button>
       </Modal.Header>
       <Modal.Body>
-        <picture className="drop-shadow-xl">
+        <picture className="drop-shadow-xl center">
           <img
             className={info.imgClass}
             meta={info.albumName}

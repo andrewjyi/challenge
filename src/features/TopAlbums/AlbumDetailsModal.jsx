@@ -10,29 +10,25 @@ const AlbumDetailsModal = ({ info, show, close }) => {
       </Modal.Header>
       <Modal.Body>
         <picture className="drop-shadow-xl center">
-          <img
-            className={info.imgClass}
-            meta={info.name}
-            src={info.imgSrc}
-          />
+          <img className={info.imgClass} meta={info.name} src={info.imgSrc} />
         </picture>
-        <div className="mt-4">
-          <div>
-            <b>Artist:</b> {info.artist}
-          </div>
-          <div>
-            <b>Item Count:</b> {info.itemCount}
-          </div>
-          <div>
-            <b>Price:</b> {info.price}
-          </div>
-          <div>
-            <b>Release Date:</b> {info.releaseDate}
-          </div>
-          <div>
-            <b>Rights:</b> {info.rights}
-          </div>
-        </div>
+        <dl className="mt-4">
+          <dt>
+            <b>Artist:</b> <dd>{info.artist}</dd>
+          </dt>
+          <dt>
+            <b>Item Count:</b> <dd>{info.itemCount}</dd>
+          </dt>
+          <dt>
+            <b>Price:</b> <dd>{info.price}</dd>
+          </dt>
+          <dt>
+            <b>Release Date:</b> <dd>{info.releaseDate}</dd>
+          </dt>
+          <dt>
+            <b>Rights:</b> <dd>{info.rights}</dd>
+          </dt>
+        </dl>
       </Modal.Body>
     </Modal>
   );

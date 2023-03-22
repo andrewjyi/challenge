@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Loading } from "../../components/Loading/Loading";
 import { useState } from "react";
 import { SearchBar } from "./SearchBar";
+import { transformAlbum } from "./transformAlbum";
 
 const AlbumList = () => {
   const [albums, setAlbums] = useState(null);
@@ -18,9 +19,9 @@ const AlbumList = () => {
             feed: { entry },
           } = res.data;
 
-          localStorage.setItem("albums", JSON.stringify(entry));
-          setAlbums(entry);
-          return entry;
+          localStorage.setItem("albums", JSON.stringify(transformAlbum(entry)));
+          setAlbums(transformAlbum(entry));
+          return transformAlbum(entry);
         }),
     staleTime: 1000,
   });
@@ -39,35 +40,34 @@ const AlbumList = () => {
 
     const { albumName, artist } = query;
 
-    const albumFound = albums.find((album) => {
-      return albumName?.toLowerCase() === album["im:name"]?.label.toLowerCase();
-    });
+    const albumFound = albums.find(
+      (album) =>
+        albumName?.toLowerCase() === album.albumName.toLowerCase()
+    );
     if (albumFound) {
       return setAlbums([albumFound]);
     }
 
-    const found = albums.filter((album) => {
-      return artist?.toLowerCase() === album["im:artist"]?.label.toLowerCase();
-    });
-    if (found.length > 0) {
+    const artistFound = albums.filter(
+      (album) => artist?.toLowerCase() === album.artist.toLowerCase()
+    );
+    if (artistFound.length > 0) {
       setAlbums(found);
     }
   };
 
   return (
-    <section className="pl-5">
+    <section className="pl-4 pr-4">
       {isLoading ? (
         <Loading />
       ) : (
         <>
           <SearchBar options={albums} handleSearch={handleSearch} />
-          {/* <ul className="auto-grid"> */}
-          <ul className="grid grid-cols-6 gap-8">
-            <>
-              {albums?.map((album) => (
-                <Album key={album.id?.attributes["im:id"]} info={album} />
-              ))}
-            </>
+          <ul className="auto-grid">
+            {/* <ul className="grid grid-cols-6 gap-8"> */}
+            {albums?.map((album) => (
+              <Album key={album.id} info={album} />
+            ))}
           </ul>
         </>
       )}

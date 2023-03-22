@@ -16,8 +16,8 @@ const SearchBar = ({ options, handleSearch }) => {
         handleSearch(query[0]);
       }}
       options={options.map((item) => ({
-        artist: item["im:artist"].label,
-        albumName: item["im:name"].label,
+        artist: item.artist,
+        albumName: item.albumName,
       }))}
       renderMenuItemChildren={(option) => (
         <div>

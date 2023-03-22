@@ -1,41 +1,36 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import { getMuricanDateFormat } from "../../utils/utils";
 
 const AlbumDetailsModal = ({ info, show, close }) => {
   return (
     <Modal className="text-sm" show={show} onHide={() => close()}>
       <Modal.Header className="border-none pb-0">
-        <Modal.Title>{info["im:name"].label}</Modal.Title>
+        <Modal.Title>{info.albumName}</Modal.Title>
         <button onClick={() => close()}>X</button>
       </Modal.Header>
       <Modal.Body>
         <picture className="drop-shadow-xl">
           <img
             className="h-60 w-60 rounded"
-            meta={info["im:name"].label}
-            src={info["im:image"][2].label}
+            meta={info.albumName}
+            src={info.imgSrc}
           />
         </picture>
         <div className="mt-4">
           <div>
-            <b>Title:</b> {info["title"].label}
+            <b>Artist:</b> {info.artist}
           </div>
           <div>
-            <b>Artist:</b> {info["im:artist"].label}
+            <b>Item Count:</b> {info.itemCount}
           </div>
           <div>
-            <b>Item Count:</b> {info["im:itemCount"].label}
+            <b>Price:</b> {info.price}
           </div>
           <div>
-            <b>Price:</b> {info["im:price"].label}
+            <b>Release Date:</b> {info.releaseDate}
           </div>
           <div>
-            <b>Release Date:</b>{" "}
-            {show && getMuricanDateFormat(info["im:releaseDate"].label)}
-          </div>
-          <div>
-            <b>Rights:</b> {info["rights"].label}
+            <b>Rights:</b> {info.rights}
           </div>
         </div>
       </Modal.Body>

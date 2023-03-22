@@ -83,7 +83,7 @@ const AlbumList = () => {
               <SearchBar options={albums} handleSearch={handleSearch} />
             </div>
           </div>
-          <Ul className="auto-grid">
+          <Ul>
             {albums?.map((album) => (
               <Album key={album.id} info={album} />
             ))}

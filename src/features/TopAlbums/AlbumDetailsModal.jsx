@@ -11,7 +11,7 @@ const AlbumDetailsModal = ({ info, show, close }) => {
       <Modal.Body>
         <picture className="drop-shadow-xl">
           <img
-            className="h-60 w-60 rounded"
+            className={info.imgClass}
             meta={info.albumName}
             src={info.imgSrc}
           />

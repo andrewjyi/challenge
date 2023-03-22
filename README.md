@@ -12,7 +12,4 @@
 • Hosting (https://weecare-challenge.vercel.app/)
 
 # Bonus  
-• Add a feature that you think would work well here (for instance, advanced search, integration with other API, a "Favorite" functionality) 
-
-
-- styled components
+• Add a feature that you think would work well here (for instance, advanced search, integration with other API, a "Favorite" functionality)

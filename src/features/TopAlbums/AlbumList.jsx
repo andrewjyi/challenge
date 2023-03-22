@@ -53,11 +53,11 @@ const AlbumList = () => {
       return resetSearch();
     }
 
-    const { albumName, artist } = query;
+    const { name, artist } = query;
 
     // search for album
     const albumFound = albums.find(
-      (album) => albumName?.toLowerCase() === album.albumName.toLowerCase()
+      (album) => name?.toLowerCase() === album.name.toLowerCase()
     );
     if (albumFound) {
       return setAlbums([albumFound]);

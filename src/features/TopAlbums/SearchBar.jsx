@@ -1,5 +1,10 @@
 import { Typeahead } from "react-bootstrap-typeahead";
 
+const props = {
+  artist: "artist",
+  name: "name",
+};
+
 const SearchBar = ({ options, handleSearch }) => {
   return (
     <Typeahead
@@ -7,9 +12,9 @@ const SearchBar = ({ options, handleSearch }) => {
       placeholder="Search..."
       ignoreDiacritics={false}
       size={"sm"}
-      filterBy={["artist", "albumName"]}
+      filterBy={[props.artist, props.name]}
       positionFixed={true}
-      labelKey={(option) => `${option.artist} (${option.albumName})`}
+      labelKey={(option) => `${option[props.artist]} (${option[props.name]})`}
       onInputChange={(text) => {
         handleSearch(text);
       }}
@@ -17,14 +22,14 @@ const SearchBar = ({ options, handleSearch }) => {
         handleSearch(query[0]);
       }}
       options={options.map((item) => ({
-        artist: item.artist,
-        albumName: item.albumName,
+        [props.artist]: item[props.artist],
+        [props.name]: item[props.name],
       }))}
       renderMenuItemChildren={(option) => (
         <div>
-          <div className="text-sm">{option.artist}</div>
+          <div className="text-sm">{option[props.artist]}</div>
           <div className="text-xs">
-            <small>Album: {option.albumName}</small>
+            <small>Album: {option[props.name]}</small>
           </div>
         </div>
       )}

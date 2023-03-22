@@ -25,7 +25,7 @@ const Album = ({ info }) => {
           />
         </picture>
         <div className="text-xs mt-2 text-center">
-          <div className="font-light">{info.albumName}</div>
+          <div className="font-light">{info.name}</div>
           <div className="font-extralight">{info.artist}</div>
         </div>
       </Item>

@@ -12,10 +12,10 @@ const Dd = styled.dd`
 
 const AlbumDetailsModal = ({ info, show, close }) => {
   return (
-    <Modal className="text-sm" show={show} onHide={() => close()}>
+    <Modal className="text-sm" show={show} onHide={close}>
       <Modal.Header className="border-none pb-0">
         <Modal.Title>{info.name}</Modal.Title>
-        <button onClick={() => close()}>X</button>
+        <button onClick={close}>X</button>
       </Modal.Header>
       <Modal.Body>
         <picture className="drop-shadow-xl center">

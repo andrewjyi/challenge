@@ -17,7 +17,7 @@ const Album = ({ info }) => {
 
   return (
     <>
-      <Li onClick={() => handleShow()}>
+      <Li onClick={handleShow}>
         <picture className="drop-shadow-xl center">
           <img
             className={info.imgClass}
@@ -31,11 +31,7 @@ const Album = ({ info }) => {
         </div>
       </Li>
       <>
-        <AlbumDetailsModal
-          info={info}
-          show={show}
-          close={() => handleClose()}
-        />
+        <AlbumDetailsModal info={info} show={show} close={handleClose} />
       </>
     </>
   );

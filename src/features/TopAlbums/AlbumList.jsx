@@ -1,7 +1,7 @@
 import { Album } from "../TopAlbums/Album";
 import { useQueryClient } from "@tanstack/react-query";
 import { Loading } from "@/components/Loading/Loading";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SearchBar } from "./SearchBar";
 import styled from "styled-components";
 import useAlbum from "./hooks/useAlbum";
@@ -18,11 +18,15 @@ const Ul = styled.ul`
 `;
 
 const AlbumList = () => {
-  const [albums, setAlbums] = useState(null);
+  const [albums, setAlbums] = useState([]);
 
-  const { isLoading, error } = useAlbum({ setAlbums });
+  const { isLoading, error, data } = useAlbum();
 
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    return data && setAlbums(data);
+  }, [data]);
 
   const resetSearch = () => {
     const cachedAlbums = queryClient.getQueryData([QUERY_KEYS.albums]);
@@ -31,7 +35,7 @@ const AlbumList = () => {
 
   const onHandleSearch = (query) => {
     // reset albums
-    if (!query || query.length === 0) {
+    if (!query) {
       return resetSearch();
     }
 
@@ -63,7 +67,7 @@ const AlbumList = () => {
         <SearchBar options={albums} onHandleSearch={onHandleSearch} />
       </div>
       <Ul>
-        {albums?.map((album) => (
+        {albums.map((album) => (
           <Album key={album.id} info={album} />
         ))}
       </Ul>

@@ -1,3 +1,8 @@
+# Start Project
+ - cd into directory  
+ - "yarn" to install packages  
+ - "yarn dev" to start project  
+
 # Challenge Requirements (Expert)  
 • Show top albums ✅  
 • Search top albums ✅  
@@ -9,4 +14,4 @@
 • SASS ✅  
 • CSS animations ✅  
 • Source code on Github ✅  
-• Hosting (https://weecare-challenge.vercel.app/) ✅  
+• Hosting (https://weecare-challenge.vercel.app/) ✅ 

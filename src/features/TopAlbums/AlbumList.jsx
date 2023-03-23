@@ -1,10 +1,11 @@
 import { Album } from "../TopAlbums/Album";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Loading } from "../../components/Loading/Loading";
 import { useState } from "react";
 import { SearchBar } from "./SearchBar";
-import { transformAlbums } from "./transformAlbums";
 import styled from "styled-components";
+import useAlbum from "./hooks/useAlbum";
+import QUERY_KEYS from "./utils/queryKeys";
 
 const Ul = styled.ul`
   --auto-grid-min-size: 16rem;
@@ -19,35 +20,24 @@ const Ul = styled.ul`
 const AlbumList = () => {
   const [albums, setAlbums] = useState(null);
 
+  const { isLoading, error } = useAlbum({ setAlbums });
+
   const queryClient = useQueryClient();
 
-  // TODO: abstract
-  const { isLoading, error } = useQuery({
-    queryKey: ["albums"],
-    queryFn: async () => {
-      const response = await fetch(
-        "https://itunes.apple.com/us/rss/topalbums/limit=100/json"
-      );
-      const data = await response.json();
-      const albums = transformAlbums(data.feed.entry);
-      setAlbums(albums);
-      return albums;
-    },
-    staleTime: 1000,
-  });
-
   const resetSearch = () => {
-    const cachedAlbums = queryClient.getQueryData(["albums"]);
+    const cachedAlbums = queryClient.getQueryData([QUERY_KEYS.albums]);
     return setAlbums(cachedAlbums);
   };
 
   const onHandleSearch = (query) => {
+    // reset albums
     if (!query || query.length === 0) {
       return resetSearch();
     }
 
     const { name, artist } = query;
 
+    // find album
     const albumFound = albums.find(
       (album) => name?.toLowerCase() === album.name.toLowerCase()
     );
@@ -55,6 +45,7 @@ const AlbumList = () => {
       return setAlbums([albumFound]);
     }
 
+    // find artist
     const artistFound = albums.filter(
       (album) => artist?.toLowerCase() === album.artist.toLowerCase()
     );
@@ -68,10 +59,8 @@ const AlbumList = () => {
 
   return (
     <section className="pl-4 pr-4">
-      <div className="mb-4">
-        <div className="center">
-          <SearchBar options={albums} onHandleSearch={onHandleSearch} />
-        </div>
+      <div className="mb-4 center">
+        <SearchBar options={albums} onHandleSearch={onHandleSearch} />
       </div>
       <Ul>
         {albums?.map((album) => (

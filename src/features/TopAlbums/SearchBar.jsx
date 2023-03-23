@@ -11,9 +11,10 @@ const SearchBar = ({ options, onHandleSearch }) => {
       id="typeahead"
       placeholder="Search..."
       size={"sm"}
+      align={"left"}
       inputProps={{
         style: {
-          width: "300px",
+          width: "354px",
         },
       }}
       filterBy={[props.artist, props.name]}
@@ -29,7 +30,7 @@ const SearchBar = ({ options, onHandleSearch }) => {
         [props.name]: option[props.name],
       }))}
       renderMenuItemChildren={(option) => (
-        <div>
+        <div className="w-80">
           <div className="text-sm">{option[props.artist]}</div>
           <div className="text-xs">
             <small>Album: {option[props.name]}</small>

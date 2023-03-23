@@ -1,12 +1,12 @@
 # Start Project
- - cd into directory  
- - "yarn" to install packages  
- - "yarn dev" to start project  
+• cd into directory  
+• "yarn" to install packages  
+• "yarn dev" to start project  
 
 # Challenge Requirements (Expert)  
 • Show top albums ✅  
 • Search top albums ✅  
-• Show Albums in greater detail ✅  
+• Show albums in greater detail ✅  
 • Cross browser support ✅  
 • Responsive ✅  
 • CSS Framework ✅  

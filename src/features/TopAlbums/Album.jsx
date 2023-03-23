@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const Li = styled.li`
+  animation: fadeIn 0.6s;
   &:hover {
     cursor: pointer;
   }

@@ -1,4 +1,4 @@
-import { getMuricanDateFormat } from "../../../utils/utils";
+import { getMuricanDateFormat } from "@/utils/utils";
 
 const transformAlbums = (albums) => {
   return albums.map((album) => ({

@@ -1,6 +1,6 @@
 import { Album } from "../TopAlbums/Album";
 import { useQueryClient } from "@tanstack/react-query";
-import { Loading } from "../../components/Loading/Loading";
+import { Loading } from "@/components/Loading/Loading";
 import { useState } from "react";
 import { SearchBar } from "./SearchBar";
 import styled from "styled-components";
